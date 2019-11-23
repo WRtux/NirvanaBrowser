@@ -5,39 +5,144 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.LayoutManager;
+import java.awt.Panel;
 import java.awt.Point;
+import java.awt.event.HierarchyBoundsListener;
+import java.awt.event.HierarchyEvent;
 
 import nirvana.gui.Colors;
 
-public class Padder<E extends Component> extends FrameBox<E> {
+public class Padder<E extends Component> extends Panel {
 	
-	private static final long serialVersionUID = 9022051934582222429L;
+	protected final E component;
 	
-	protected final Insets margin;
-	protected final Insets border;
+	protected Insets margin;
+	protected Insets border;
 	
-	protected Color color;
+	protected Color color = Colors.BORDER;
 	
 	public Padder(E comp, Insets m, Insets b) {
 		
-		super(comp);
+		super(null);
+		this.component = comp;
 		if(m == null || b == null) throw new NullPointerException();
 		this.margin = m;
 		this.border = b;
-		this.color = Colors.BORDER;
 		
-		Dimension s = comp.getMinimumSize();
-		this.setMinimumSize(new Dimension(
-			s.width + b.left + b.right, s.height + b.top + b.bottom
-		));
-		s = comp.getPreferredSize();
-		this.setPreferredSize(new Dimension(
-			s.width + b.left + b.right, s.height + b.top + b.bottom
-		));
+		super.addImpl(comp, null, -1);
+		
+		this.addHierarchyBoundsListener(new HierarchyBoundsListener() {
+			public void ancestorResized(HierarchyEvent e) {
+				Padder.this.updateBounds();
+			}
+			public void ancestorMoved(HierarchyEvent e) {
+				Padder.this.updateBounds();
+			}
+		});
 		
 	}
 	public Padder(E comp) {
 		this(comp, new Insets(0, 0, 0, 0), new Insets(1, 1, 1, 1));
+	}
+	
+	@Override
+	@Deprecated
+	public final int getComponentCount() {
+		return super.getComponentCount();
+	}
+	
+	@Override
+	@Deprecated
+	public final Component getComponent(int i) {
+		return super.getComponent(i);
+	}
+	
+	@Override
+	@Deprecated
+	public final Component[] getComponents() {
+		return super.getComponents();
+	}
+	
+	@Override
+	public Dimension getMinimumSize() {
+		if(this.isMinimumSizeSet()) return super.getMinimumSize();
+		else {
+			Dimension ms = this.component.getMinimumSize(), s = this.getShrink();
+			ms.setSize(ms.width + s.width, ms.height + s.height);
+			return ms;
+		}
+	}
+	
+	@Override
+	public Dimension getPreferredSize() {
+		if(this.isPreferredSizeSet()) return super.getPreferredSize();
+		else {
+			Dimension ps = this.component.getPreferredSize(), s = this.getShrink();
+			ps.setSize(ps.width + s.width, ps.height + s.height);
+			return ps;
+		}
+	}
+	
+	public Insets getMargin() {
+		return this.margin;
+	}
+	
+	public Insets getBorder() {
+		return this.border;
+	}
+	
+	public Dimension getShrink() {
+		return new Dimension(
+			this.margin.left + this.border.left + this.margin.right + this.border.right,
+			this.margin.top + this.border.top + this.margin.bottom + this.border.bottom
+		);
+	}
+	
+	public Color getBorderColor() {
+		return this.color;
+	}
+	
+	@Override
+	@Deprecated
+	protected final void addImpl(Component comp, Object constr, int i) {}
+	
+	@Override
+	@Deprecated
+	public final void add(Component comp, Object constr, int i) {}
+	
+	@Override
+	@Deprecated
+	public final void add(Component comp, Object constr) {}
+	@Override
+	@Deprecated
+	public final Component add(Component comp) {
+		return null;
+	}
+	
+	@Override
+	@Deprecated
+	public final void remove(int i) {}
+	@Override
+	@Deprecated
+	public final void remove(Component comp) {}
+	
+	@Override
+	@Deprecated
+	public final void removeAll() {}
+	
+	@Override
+	@Deprecated
+	public final void setLayout(LayoutManager mgr) {}
+	
+	public void setMargin(Insets m) {
+		if(m == null) throw new NullPointerException();
+		this.margin = m;
+	}
+	
+	public void setBorder(Insets b) {
+		if(b == null) throw new NullPointerException();
+		this.border = b;
 	}
 	
 	public void setBorderColor(Color c) {
@@ -62,14 +167,10 @@ public class Padder<E extends Component> extends FrameBox<E> {
 	
 	@Override
 	public void paint(Graphics g) {
-		this.updateBounds();
 		g.setColor(this.color);
-		Dimension s = this.getSize();
-		s.setSize(s.width - this.margin.right, s.height - this.margin.bottom);
-		g.fillRect(
-			this.margin.left, this.margin.top,
-			s.width - this.margin.left, s.height - this.margin.top
-		);
+		Dimension ss = this.getSize(), s = this.getShrink();
+		ss.setSize(ss.width - s.width, ss.height - s.height);
+		g.fillRect(this.margin.left, this.margin.top, ss.width, ss.height);
 		super.paint(g);
 	}
 	

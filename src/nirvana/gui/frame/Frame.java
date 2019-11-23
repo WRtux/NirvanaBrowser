@@ -1,18 +1,28 @@
 package nirvana.gui.frame;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.LayoutManager;
 import java.awt.Panel;
 
-abstract class Frame extends Panel {
+import nirvana.session.Session;
+import nirvana.session.Session.ISessionObject;
+
+public abstract class Frame extends Panel implements ISessionObject {
 	
-	private static final long serialVersionUID = -7272497066639669493L;
+	private static final long serialVersionUID = 1948547306166606899L;
+	
+	protected Session session;
 	
 	protected Frame(LayoutManager mgr) {
 		super(mgr);
 	}
 	
-	int getNodeCount() {
+	public Session getSession() {
+		return this.session;
+	}
+	
+	protected int getNodeCount() {
 		return super.getComponentCount();
 	}
 	
@@ -22,7 +32,7 @@ abstract class Frame extends Panel {
 		return super.getComponentCount();
 	}
 	
-	Component getNode(int i) {
+	protected Component getNode(int i) {
 		return super.getComponent(i);
 	}
 	
@@ -32,7 +42,7 @@ abstract class Frame extends Panel {
 		return super.getComponent(i);
 	}
 	
-	Component[] getNodes() {
+	protected Component[] getNodes() {
 		return super.getComponents();
 	}
 	
@@ -42,15 +52,15 @@ abstract class Frame extends Panel {
 		return super.getComponents();
 	}
 	
-	void addNode(Component comp, Object constr, int i) {
+	protected void addNode(Component comp, Object constr, int i) {
 		super.addImpl(comp, constr, i);
 	}
 	
-	void addNode(Component comp, Object constr) {
+	protected void addNode(Component comp, Object constr) {
 		/* 注意：由于子类可能重写方法，不能调用this.addNode(Component, Object, int)。 */
 		super.addImpl(comp, constr, -1);
 	}
-	void addNode(Component comp) {
+	protected void addNode(Component comp) {
 		/* 注意：由于子类可能重写方法，不能调用this.addNode(Component, Object, int)。 */
 		super.addImpl(comp, null, -1);
 	}
@@ -72,10 +82,10 @@ abstract class Frame extends Panel {
 		return null;
 	}
 	
-	void removeNode(int i) {
+	protected void removeNode(int i) {
 		super.remove(i);
 	}
-	void removeNode(Component comp) {
+	protected void removeNode(Component comp) {
 		super.remove(comp);
 	}
 	
@@ -86,12 +96,32 @@ abstract class Frame extends Panel {
 	@Deprecated
 	public final void remove(Component comp) {}
 	
-	void removeAllNodes() {
+	protected void removeAllNodes() {
 		super.removeAll();
 	}
 	
 	@Override
 	@Deprecated
 	public final void removeAll() {}
+	
+	@Override
+	@Deprecated
+	public final void setLayout(LayoutManager mgr) {
+		super.setLayout(mgr);
+	}
+	
+	@Override
+	public void addNotify() {
+		super.addNotify();
+		Container cont = this.getParent();
+		if(cont instanceof ISessionObject)
+			this.session = ((ISessionObject)cont).getSession();
+	}
+	
+	@Override
+	public void removeNotify() {
+		this.session = null;
+		super.removeNotify();
+	}
 	
 }

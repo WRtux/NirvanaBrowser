@@ -3,54 +3,55 @@ package nirvana.gui.frame;
 import java.awt.Component;
 import java.awt.LayoutManager;
 
-public abstract class FrameContainer extends Frame {
+@Deprecated
+public class FrameContainer extends Frame {
 	
-	private static final long serialVersionUID = -8989142480788180804L;
+	private static final long serialVersionUID = 6905585860559797638L;
 	
 	protected FrameContainer(LayoutManager mgr) {
 		super(mgr);
 	}
 	
 	@Override
-	protected int getNodeCount() {
+	public int getNodeCount() {
 		return super.getNodeCount();
 	}
 	
 	@Override
-	protected Component getNode(int i) {
+	public Component getNode(int i) {
 		return super.getNode(i);
 	}
 	
 	@Override
-	protected Component[] getNodes() {
+	public Component[] getNodes() {
 		return super.getNodes();
 	}
 	
 	@Override
-	protected void addNode(Component comp, Object constr, int i) {
+	public void addNode(Component comp, Object constr, int i) {
 		super.addNode(comp, constr, i);
 	}
 	
 	@Override
-	protected void addNode(Component comp, Object constr) {
+	public void addNode(Component comp, Object constr) {
 		super.addNode(comp, constr);
 	}
 	@Override
-	protected void addNode(Component comp) {
+	public void addNode(Component comp) {
 		super.addNode(comp);
 	}
 	
 	@Override
-	protected void removeNode(int i) {
+	public void removeNode(int i) {
 		super.removeNode(i);
 	}
 	@Override
-	protected void removeNode(Component comp) {
+	public void removeNode(Component comp) {
 		super.removeNode(comp);
 	}
 	
 	@Override
-	protected void removeAllNodes() {
+	public void removeAllNodes() {
 		super.removeAllNodes();
 	}
 	

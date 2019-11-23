@@ -11,7 +11,7 @@ public class Icon extends Component {
 	
 	private static final long serialVersionUID = 6064706731429049715L;
 	
-	Image icon;
+	protected Image icon;
 	
 	public Icon(Image icon) {
 		

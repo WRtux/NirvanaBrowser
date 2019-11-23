@@ -1,12 +1,18 @@
 package nirvana.gui.frame;
 
-import java.awt.Component;
+import java.awt.LayoutManager;
+import java.awt.Panel;
 
-public abstract class FrameBox<E extends Component> extends Frame {
+public abstract class FrameBox<E extends Panel> extends Frame {
 	
-	private static final long serialVersionUID = 6731337915989879113L;
+	private static final long serialVersionUID = -5664189605094248400L;
 	
-	final E component;
+	protected final E component;
+	
+	protected FrameBox(E comp, LayoutManager mgr) {
+		super(mgr);
+		this.component = comp;
+	}
 	
 	protected FrameBox(E comp) {
 		
@@ -17,7 +23,7 @@ public abstract class FrameBox<E extends Component> extends Frame {
 		
 	}
 	
-	protected E getComponent() {
+	public E getComponent() {
 		return this.component;
 	}
 	
