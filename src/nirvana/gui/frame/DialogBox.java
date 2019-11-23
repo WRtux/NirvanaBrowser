@@ -30,6 +30,7 @@ public class DialogBox extends FrameBox<Frame> {
 			this.dialog = dialog;
 			
 			this.setMinimumSize(new Dimension(160, 20));
+			this.setPreferredSize(new Dimension(160, 20));
 			this.setBackground(Colors.BACKGROUND_TRAY);
 			this.setForeground(Colors.FOREGROUND);
 			
