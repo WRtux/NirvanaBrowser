@@ -1,0 +1,7 @@
+# Binary folder
+/bin/
+
+# Project files
+/.settings/
+/.project
+/.classpath
