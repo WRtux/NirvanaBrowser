@@ -10,7 +10,11 @@ import java.awt.Label;
 
 public class DialogBox extends FrameBox<Frame> {
 	
+	private static final long serialVersionUID = 6912638167705219891L;
+	
 	protected static class Header extends FramePadder implements IHeader {
+		
+		private static final long serialVersionUID = -8023687513587231001L;
 		
 		protected final Icon icon;
 		protected final Label header;
