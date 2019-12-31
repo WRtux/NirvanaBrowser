@@ -10,14 +10,14 @@ import java.awt.Point;
 import java.awt.event.HierarchyBoundsListener;
 import java.awt.event.HierarchyEvent;
 
-import nirvana.gui.Colors;
-
 public class FramePadder extends FrameBox<Frame> {
+	
+	private static final long serialVersionUID = 6814371604812115414L;
 	
 	protected Insets margin;
 	protected Insets border;
 	
-	protected Color color = Colors.BORDER;
+	protected Color color = Appearance.BORDER;
 	
 	public FramePadder(Frame cont, Insets m, Insets b) {
 		
@@ -40,9 +40,8 @@ public class FramePadder extends FrameBox<Frame> {
 		this(cont, new Insets(0, 0, 0, 0), new Insets(1, 1, 1, 1));
 	}
 	
-	@SuppressWarnings("serial")
 	protected FramePadder(LayoutManager mgr, Insets m, Insets b) {
-		this(new Frame(mgr) {}, m , b);
+		this(Frame.createBare(mgr), m , b);
 	}
 	protected FramePadder(LayoutManager mgr) {
 		this(mgr, new Insets(0, 0, 0, 0), new Insets(1, 1, 1, 1));
@@ -120,6 +119,7 @@ public class FramePadder extends FrameBox<Frame> {
 	protected void removeNode(int i) {
 		this.component.removeNode(i);
 	}
+	
 	@Override
 	protected void removeNode(Component comp) {
 		this.component.removeNode(comp);

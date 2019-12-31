@@ -6,11 +6,16 @@ import java.awt.LayoutManager;
 import java.awt.Panel;
 
 import nirvana.session.Session;
-import nirvana.session.Session.ISessionObject;
+import nirvana.session.Session.SessionObject;
 
-public abstract class Frame extends Panel implements ISessionObject {
+public abstract class Frame extends Panel implements SessionObject {
 	
-	private static final long serialVersionUID = 1948547306166606899L;
+	private static final long serialVersionUID = 602116253591787130L;
+	
+	@SuppressWarnings("serial")
+	protected static Frame createBare(LayoutManager mgr) {
+		return new Frame(mgr) {};
+	}
 	
 	protected Session session;
 	
@@ -61,8 +66,7 @@ public abstract class Frame extends Panel implements ISessionObject {
 		super.addImpl(comp, constr, -1);
 	}
 	protected void addNode(Component comp) {
-		/* 注意：由于子类可能重写方法，不能调用this.addNode(Component, Object, int)。 */
-		super.addImpl(comp, null, -1);
+		this.addNode(comp, null);
 	}
 	
 	@Override
@@ -114,8 +118,8 @@ public abstract class Frame extends Panel implements ISessionObject {
 	public void addNotify() {
 		super.addNotify();
 		Container cont = this.getParent();
-		if(cont instanceof ISessionObject)
-			this.session = ((ISessionObject)cont).getSession();
+		if(cont instanceof SessionObject)
+			this.session = ((SessionObject)cont).getSession();
 	}
 	
 	@Override

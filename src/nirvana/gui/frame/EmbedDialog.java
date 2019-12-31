@@ -6,13 +6,12 @@ import java.awt.Image;
 import java.awt.LayoutManager;
 import java.io.Serializable;
 
-import nirvana.gui.Colors;
 import nirvana.session.Session;
-import nirvana.session.Session.ISessionObject;
+import nirvana.session.Session.SessionObject;
 
-public class EmbedDialog implements Serializable, ISessionObject {
+public class EmbedDialog implements Serializable, SessionObject {
 	
-	private static final long serialVersionUID = 3041985129095509776L;
+	private static final long serialVersionUID = 2882521144044058827L;
 	
 	protected Image icon;
 	protected String title;
@@ -31,17 +30,16 @@ public class EmbedDialog implements Serializable, ISessionObject {
 		this.container = cont;
 		
 		this.container.setMinimumSize(new Dimension(160, 80));
-		this.container.setBackground(Colors.BACKGROUND);
-		this.container.setForeground(Colors.FOREGROUND);
+		this.container.setBackground(Appearance.BACKGROUND);
+		this.container.setForeground(Appearance.FOREGROUND);
 		
 	}
 	public EmbedDialog(String title, Frame cont) {
 		this(null, title, cont);
 	}
 	
-	@SuppressWarnings("serial")
 	protected EmbedDialog(Image icon, String title, LayoutManager mgr) {
-		this(icon, title, new Frame(mgr) {});
+		this(icon, title, Frame.createBare(mgr));
 	}
 	protected EmbedDialog(String title, LayoutManager mgr) {
 		this(null, title, mgr);
@@ -124,6 +122,7 @@ public class EmbedDialog implements Serializable, ISessionObject {
 	protected void removeNode(int i) {
 		this.container.removeNode(i);
 	}
+	
 	protected void removeNode(Component comp) {
 		this.container.removeNode(comp);
 	}

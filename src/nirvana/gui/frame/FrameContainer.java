@@ -6,9 +6,9 @@ import java.awt.LayoutManager;
 @Deprecated
 public class FrameContainer extends Frame {
 	
-	private static final long serialVersionUID = 6905585860559797638L;
+	private static final long serialVersionUID = 4251643961100121536L;
 	
-	protected FrameContainer(LayoutManager mgr) {
+	public FrameContainer(LayoutManager mgr) {
 		super(mgr);
 	}
 	
@@ -45,6 +45,7 @@ public class FrameContainer extends Frame {
 	public void removeNode(int i) {
 		super.removeNode(i);
 	}
+	
 	@Override
 	public void removeNode(Component comp) {
 		super.removeNode(comp);

@@ -8,15 +8,9 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Label;
 
-import nirvana.gui.Colors;
-
 public class DialogBox extends FrameBox<Frame> {
 	
-	private static final long serialVersionUID = 6912638167705219891L;
-	
 	protected static class Header extends FramePadder implements IHeader {
-		
-		private static final long serialVersionUID = -8023687513587231001L;
 		
 		protected final Icon icon;
 		protected final Label header;
@@ -31,8 +25,8 @@ public class DialogBox extends FrameBox<Frame> {
 			
 			this.setMinimumSize(new Dimension(160, 20));
 			this.setPreferredSize(new Dimension(160, 20));
-			this.setBackground(Colors.BACKGROUND_TRAY);
-			this.setForeground(Colors.FOREGROUND);
+			this.setBackground(Appearance.BACKGROUND_TRAY);
+			this.setForeground(Appearance.FOREGROUND);
 			
 			this.icon = new Icon(dialog.icon);
 			this.header = new Label(dialog.title, Label.LEFT);
@@ -53,8 +47,8 @@ public class DialogBox extends FrameBox<Frame> {
 		}
 		
 		public void notifyActive(boolean active) {
-			if(active) this.setBackground(Colors.BACKGROUND_HIGHLIGHT);
-			else this.setBackground(Colors.BACKGROUND_TRAY);
+			if(active) this.setBackground(Appearance.BACKGROUND_HIGHLIGHT);
+			else this.setBackground(Appearance.BACKGROUND_TRAY);
 		}
 		
 		@Override

@@ -11,16 +11,16 @@ import java.awt.Point;
 import java.awt.event.HierarchyBoundsListener;
 import java.awt.event.HierarchyEvent;
 
-import nirvana.gui.Colors;
-
 public class Padder<E extends Component> extends Panel {
+	
+	private static final long serialVersionUID = -1703397829660304275L;
 	
 	protected final E component;
 	
 	protected Insets margin;
 	protected Insets border;
 	
-	protected Color color = Colors.BORDER;
+	protected Color color = Appearance.BORDER;
 	
 	public Padder(E comp, Insets m, Insets b) {
 		
@@ -123,6 +123,7 @@ public class Padder<E extends Component> extends Panel {
 	@Override
 	@Deprecated
 	public final void remove(int i) {}
+	
 	@Override
 	@Deprecated
 	public final void remove(Component comp) {}
