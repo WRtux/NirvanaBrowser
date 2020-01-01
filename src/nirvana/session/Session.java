@@ -7,7 +7,7 @@ import nirvana.gui.frame.EmbedDialog;
 
 public class Session implements Serializable {
 	
-	public static interface ISessionObject {
+	public static interface SessionObject {
 		
 		public Session getSession();
 		
