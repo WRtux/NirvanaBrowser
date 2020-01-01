@@ -5,9 +5,10 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Panel;
 
+import nirvana.gui.frame.Appearance;
+
+@Deprecated
 public class InnerDialog extends Panel {
-	
-	private static final long serialVersionUID = -797346299368002663L;
 	
 	protected Image icon;
 	protected String title;
@@ -22,8 +23,8 @@ public class InnerDialog extends Panel {
 		this.title = title;
 		
 		this.setMinimumSize(new Dimension(160, 80));
-		this.setBackground(Colors.BACKGROUND);
-		this.setForeground(Colors.FOREGROUND);
+		this.setBackground(Appearance.BACKGROUND);
+		this.setForeground(Appearance.FOREGROUND);
 		
 	}
 	public InnerDialog(String title) {

@@ -7,17 +7,16 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Label;
-import java.awt.Panel;
 
-import nirvana.gui.frame.FrameContainer;
+import nirvana.gui.frame.Appearance;
+import nirvana.gui.frame.Frame;
 import nirvana.gui.frame.FramePadder;
 import nirvana.gui.frame.Icon;
 
-public class DialogPanel extends FrameContainer {
+@Deprecated
+public class DialogPanel extends Frame {
 	
 	protected static class HeaderPanel extends FramePadder {
-		
-		private static final long serialVersionUID = 3191680348990017421L;
 		
 		protected final Icon icon;
 		protected final Label header;
@@ -25,15 +24,16 @@ public class DialogPanel extends FrameContainer {
 		
 		protected final InnerDialog dialog;
 		
+		@SuppressWarnings("serial")
 		protected HeaderPanel(InnerDialog dialog) {
 			
-			super(new BorderLayout(), new Insets(0, 0, 0, 0), new Insets(0, 0, 1, 0));
+			super(new Frame(new BorderLayout()) {}, new Insets(0, 0, 0, 0), new Insets(0, 0, 1, 0));
 			this.dialog = dialog;
 			
 			this.setMinimumSize(new Dimension(160, 20));
 			this.setPreferredSize(new Dimension(160, 20));
-			this.setBackground(Colors.BACKGROUND_TRAY);
-			this.setForeground(Colors.FOREGROUND);
+			this.setBackground(Appearance.BACKGROUND_TRAY);
+			this.setForeground(Appearance.FOREGROUND);
 			
 			this.icon = new Icon(dialog.icon);
 			this.header = new Label(dialog.title, Label.LEFT);
@@ -55,8 +55,6 @@ public class DialogPanel extends FrameContainer {
 		}
 		
 	}
-	
-	private static final long serialVersionUID = 5093588324379537844L;
 	
 	protected final HeaderPanel header;
 	protected final InnerDialog dialog;

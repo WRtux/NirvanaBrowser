@@ -2,7 +2,6 @@ package nirvana.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -10,14 +9,13 @@ import java.awt.Label;
 import java.util.HashMap;
 import java.util.Vector;
 
-import nirvana.gui.frame.FrameContainer;
+import nirvana.gui.frame.Appearance;
+import nirvana.gui.frame.Frame;
 import nirvana.gui.frame.Icon;
 
-public class TabbedPanel extends FrameContainer {
+public class TabbedPanel extends Frame {
 	
-	protected static final class HeaderPanel extends FrameContainer {
-		
-		private static final long serialVersionUID = 5779846301834319224L;
+	protected static final class HeaderPanel extends Frame {
 		
 		final HashMap<InnerDialog, HeaderLabel> hmap;
 		
@@ -28,8 +26,8 @@ public class TabbedPanel extends FrameContainer {
 			
 			this.setMinimumSize(new Dimension(160, 24));
 			this.setPreferredSize(new Dimension(240, 24));
-			this.setBackground(Colors.BACKGROUND_TRAY);
-			this.setForeground(Colors.FOREGROUND);
+			this.setBackground(Appearance.BACKGROUND_TRAY);
+			this.setForeground(Appearance.FOREGROUND);
 			
 		}
 		
@@ -52,16 +50,14 @@ public class TabbedPanel extends FrameContainer {
 		@Override
 		public final void paint(Graphics g) {
 			super.paint(g);
-			g.setColor(Colors.BORDER);
+			g.setColor(Appearance.BORDER);
 			int h = this.getHeight();
 			g.drawLine(0, h - 1, this.getWidth() - 1, h - 1);
 		}
 		
 	}
 	
-	protected static final class HeaderLabel extends FrameContainer {
-		
-		private static final long serialVersionUID = -1031383067980566434L;
+	protected static final class HeaderLabel extends Frame {
 		
 		protected final Icon icon;
 		protected final Label header;
@@ -78,8 +74,8 @@ public class TabbedPanel extends FrameContainer {
 			
 			this.setMinimumSize(new Dimension(40, 20));
 			this.setPreferredSize(new Dimension(80, 20));
-			this.setBackground(Colors.BACKGROUND);
-			this.setForeground(Colors.FOREGROUND);
+			this.setBackground(Appearance.BACKGROUND);
+			this.setForeground(Appearance.FOREGROUND);
 			
 			this.icon = new Icon(dialog.icon);
 			this.header = new Label(dialog.title, Label.LEFT);
@@ -117,7 +113,7 @@ public class TabbedPanel extends FrameContainer {
 		this.dialogs = new Vector<InnerDialog>();
 		
 		this.setMinimumSize(new Dimension(160, 100));
-		this.setBackground(Colors.BACKGROUND_DISABLED);
+		this.setBackground(Appearance.BACKGROUND_DISABLED);
 		
 		this.header = new HeaderPanel();
 		

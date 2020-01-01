@@ -57,21 +57,23 @@ public abstract class Frame extends Panel implements SessionObject {
 		return super.getComponents();
 	}
 	
-	protected void addNode(Component comp, Object constr, int i) {
+	/** 子类若重写了{@link #addNode(Component, Object, int)}应调用此方法完成内部组件添加。 */
+	@Override
+	protected final void addImpl(Component comp, Object constr, int i) {
 		super.addImpl(comp, constr, i);
+	}
+	
+	protected void addNode(Component comp, Object constr, int i) {
+		this.addImpl(comp, constr, i);
 	}
 	
 	protected void addNode(Component comp, Object constr) {
 		/* 注意：由于子类可能重写方法，不能调用this.addNode(Component, Object, int)。 */
-		super.addImpl(comp, constr, -1);
+		this.addImpl(comp, constr, -1);
 	}
 	protected void addNode(Component comp) {
 		this.addNode(comp, null);
 	}
-	
-	@Override
-	@Deprecated
-	protected final void addImpl(Component comp, Object constr, int i) {}
 	
 	@Override
 	@Deprecated
